@@ -1,8 +1,6 @@
 <h1 align="center">Hi There 👋, I'm Sholihul Fadjri Triwibowo</h1>
 <h3 align="center">IT Student Who Passionate At Full-stack Web Developer</h3>
 
-<p align="left"> <img src="https://komarev.com/ghpvc/?username=fdjri&label=Profile%20views&color=0e75b6&style=flat" alt="fdjri" /> </p>
-
 # 💫 About Me:
 🔭 I’m currently working on PAUD Insani Management as freelancer<br>🌱 I’m currently learning Next.js and all about JavaScript
 
