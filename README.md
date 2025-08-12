@@ -2,7 +2,7 @@
 <h3 align="center">IT Student Who Passionate At Full-stack Web Developer</h3>
 
 # 💫 About Me:
-🔭 I’m currently working on PAUD Insani Management as freelancer<br>🌱 I’m currently learning Next.js and all about JavaScript
+🔭 I’m currently an intern at cmlabs<br>🌱 I’m currently learning Next.js and all about JavaScript
 
 
 ## 🌐 Socials:
