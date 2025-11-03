@@ -1,8 +1,8 @@
 <h1 align="center">Hi There 👋, I'm Sholihul Fadjri Triwibowo</h1>
-<h3 align="center">IT Student Who Passionate At Full-stack Web Developer</h3>
+<h3 align="center">IT Student Who Interested in Apps Developer</h3>
 
 # 💫 About Me:
-🔭 I’m currently an intern at Dinas Lingkungan Hidup DKI Jakarta<br>🌱 I’m currently learning Next.js and all about JavaScript Web Dev
+🔭 I’m currently an intern at Dinas Lingkungan Hidup DKI Jakarta<br>🌱 I’m currently learning Flutter.
 
 
 ## 🌐 Socials:
