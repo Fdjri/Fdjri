@@ -9,7 +9,7 @@
 [![Facebook](https://img.shields.io/badge/Facebook-%231877F2.svg?logo=Facebook&logoColor=white)](https://www.facebook.com/fadjri.triwibowo.5) [![Instagram](https://img.shields.io/badge/Instagram-%23E4405F.svg?logo=Instagram&logoColor=white)](https://instagram.com/fdjritw) [![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/sholihul-fadjri-triwibowo-220480289/) [![TikTok](https://img.shields.io/badge/TikTok-%23000000.svg?logo=TikTok&logoColor=white)](https://tiktok.com/@fdjritw) [![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?logo=YouTube&logoColor=white)](https://youtube.com/@fdjritw)
 
 # 💻 Tech Stack & Tools:
-[![My Skills](https://skillicons.dev/icons?i=html,css,php,java,c++,js,ts,dart,flutter,laravel,nextjs,tailwindcss,bootstrap,mysql,vscode,postman,figma&theme=dark&perline=10)](https://skillicons.dev)
+[![My Skills](https://skillicons.dev/icons?i=html,css,php,java,cpp,js,ts,dart,flutter,laravel,nextjs,react,alpinejs,tailwindcss,bootstrap,mysql,vscode,postman,figma&theme=dark&perline=10)](https://skillicons.dev)
 
 # 📊 GitHub Stats:
 ![](https://github-readme-stats.vercel.app/api?username=Fdjri&theme=dark&hide_border=true&include_all_commits=true&count_private=false)<br/>
