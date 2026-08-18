@@ -1,0 +1,393 @@
+<svg width="100%" height="100%" viewBox="0 0 1180 610" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Background glow blur -->
+    <filter id="glow-blur" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="80" />
+    </filter>
+    
+    <!-- Noise texture -->
+    <filter id="noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.6" numOctaves="3" stitchTiles="stitch" />
+      <feColorMatrix type="matrix" values="1 0 0 0 0, 0 1 0 0 0, 0 0 1 0 0, 0 0 0 0.04 0" />
+    </filter>
+    
+    <!-- Animated Border Gradient (Light) -->
+    <linearGradient id="borderGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="rgba(15, 23, 42, 0.08)">
+        <animate attributeName="stop-color" values="rgba(15,23,42,0.08); #06B6D4; rgba(15,23,42,0.08)" dur="4s" repeatCount="indefinite" />
+      </stop>
+      <stop offset="50%" stop-color="rgba(15, 23, 42, 0.08)">
+        <animate attributeName="stop-color" values="#06B6D4; rgba(15,23,42,0.08); #06B6D4" dur="4s" repeatCount="indefinite" />
+      </stop>
+      <stop offset="100%" stop-color="rgba(15, 23, 42, 0.08)">
+        <animate attributeName="stop-color" values="rgba(15,23,42,0.08); #06B6D4; rgba(15,23,42,0.08)" dur="4s" repeatCount="indefinite" />
+      </stop>
+    </linearGradient>
+    
+    <!-- Accent Gradient (Light) -->
+    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#2563EB">
+        <animate attributeName="stop-color" values="#2563EB; #06B6D4; #10B981; #2563EB" dur="6s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="50%" stop-color="#06B6D4">
+        <animate attributeName="stop-color" values="#06B6D4; #10B981; #2563EB; #06B6D4" dur="6s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="100%" stop-color="#10B981">
+        <animate attributeName="stop-color" values="#10B981; #2563EB; #06B6D4; #10B981" dur="6s" repeatCount="indefinite"/>
+      </stop>
+    </linearGradient>
+    
+    <!-- ASCII Portrait Gradient (Light) -->
+    <linearGradient id="asciiGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2563EB">
+        <animate attributeName="stop-color" values="#2563EB; #06B6D4; #2563EB" dur="5s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="100%" stop-color="#06B6D4">
+        <animate attributeName="stop-color" values="#06B6D4; #10B981; #06B6D4" dur="5s" repeatCount="indefinite"/>
+      </stop>
+    </linearGradient>
+
+    <!-- Scanline Gradient (Light) -->
+    <linearGradient id="scanline" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="transparent" />
+      <stop offset="50%" stop-color="#06B6D4" />
+      <stop offset="100%" stop-color="transparent" />
+    </linearGradient>
+    
+    <!-- ClipPaths for typing animations -->
+    <clipPath id="type1">
+      <rect x="0" y="-30" width="0" height="40">
+        <animate attributeName="width" values="0; 340; 340; 0; 0" keyTimes="0; 0.0625; 0.1875; 0.25; 1" dur="16s" repeatCount="indefinite" />
+      </rect>
+    </clipPath>
+    <clipPath id="type2">
+      <rect x="0" y="-30" width="0" height="40">
+        <animate attributeName="width" values="0; 0; 240; 240; 0; 0" keyTimes="0; 0.25; 0.3125; 0.4375; 0.5; 1" dur="16s" repeatCount="indefinite" />
+      </rect>
+    </clipPath>
+    <clipPath id="type3">
+      <rect x="0" y="-30" width="0" height="40">
+        <animate attributeName="width" values="0; 0; 310; 310; 0; 0" keyTimes="0; 0.5; 0.5625; 0.6875; 0.75; 1" dur="16s" repeatCount="indefinite" />
+      </rect>
+    </clipPath>
+    <clipPath id="type4">
+      <rect x="0" y="-30" width="0" height="40">
+        <animate attributeName="width" values="0; 0; 250; 250; 0" keyTimes="0; 0.75; 0.8125; 0.9375; 1" dur="16s" repeatCount="indefinite" />
+      </rect>
+    </clipPath>
+    
+    <!-- ASCII line reveal -->
+    <clipPath id="asciiReveal">
+      <rect x="-210" y="-265" width="420" height="0">
+        <animate attributeName="height" values="0; 530" dur="2.5s" begin="0.5s" fill="freeze" />
+      </rect>
+    </clipPath>
+  </defs>
+
+  <style>
+    :root {
+      --bg: #FFFFFF;
+      --panel: rgba(248, 250, 252, 0.8);
+      --border: rgba(15, 23, 42, 0.08);
+      --text: #0F172A;
+      --muted: #475569;
+    }
+    * { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+    
+    .title { font-size: 32px; font-weight: 700; fill: var(--text); }
+    .name { font-size: 40px; font-weight: 800; fill: url(#accentGradient); }
+    
+    .static-text, .typing-text { 
+      font-size: 22px; 
+      font-weight: 600; 
+      font-family: ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace; 
+      fill: var(--text); 
+    }
+    
+    .info-label { font-size: 16px; font-weight: 500; fill: var(--muted); }
+    .info-value { font-size: 16px; font-weight: 600; fill: var(--text); }
+    
+    .skill-pill { cursor: pointer; transition: all 0.3s ease; transform-origin: center; transform-box: fill-box; }
+    .skill-pill:hover { transform: translateY(-3px); filter: drop-shadow(0 4px 10px rgba(6,182,212,0.4)); }
+    .pill-bg { fill: var(--panel); stroke: var(--border); stroke-width: 1.5; transition: all 0.3s ease; }
+    .skill-pill:hover .pill-bg { stroke: #06B6D4; }
+    .pill-text { font-size: 14px; font-weight: 600; fill: var(--text); transition: all 0.3s ease; }
+    
+    .social-icon { cursor: pointer; transition: all 0.3s ease; transform-origin: center; transform-box: fill-box; }
+    .social-icon:hover { transform: translateY(-3px); filter: drop-shadow(0 4px 10px rgba(37,99,235,0.4)); }
+    .social-icon:hover .pill-bg { stroke: #2563EB; }
+    
+    .ascii { 
+      font-family: ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace; 
+      font-size: 15px; 
+      font-weight: 800; 
+      letter-spacing: 2px;
+      fill: url(#asciiGrad);
+    }
+    .floating-ascii { animation: float 6s ease-in-out infinite; }
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-12px); }
+      100% { transform: translateY(0px); }
+    }
+  </style>
+
+  <!-- BACKGROUND -->
+  <rect width="1180" height="610" rx="16" fill="var(--bg)" />
+  
+  <!-- Floating Glows (Lighter for Light Mode) -->
+  <circle cx="20%" cy="30%" r="250" fill="#bfdbfe" opacity="0.5" filter="url(#glow-blur)">
+    <animate attributeName="cx" values="20%; 30%; 20%" dur="15s" repeatCount="indefinite" />
+    <animate attributeName="cy" values="30%; 40%; 30%" dur="15s" repeatCount="indefinite" />
+  </circle>
+  <circle cx="80%" cy="70%" r="250" fill="#ddd6fe" opacity="0.4" filter="url(#glow-blur)">
+    <animate attributeName="cx" values="80%; 70%; 80%" dur="20s" repeatCount="indefinite" />
+  </circle>
+  <circle cx="50%" cy="90%" r="200" fill="#a7f3d0" opacity="0.5" filter="url(#glow-blur)">
+    <animate attributeName="cy" values="90%; 70%; 90%" dur="18s" repeatCount="indefinite" />
+  </circle>
+
+  <!-- Particles -->
+  <g class="particles" fill="var(--text)" opacity="0.15">
+    <circle cx="15%" cy="20%" r="1.5"><animate attributeName="cy" values="20%; 15%; 20%" dur="4s" repeatCount="indefinite" /></circle>
+    <circle cx="85%" cy="30%" r="2"><animate attributeName="cx" values="85%; 80%; 85%" dur="6s" repeatCount="indefinite" /></circle>
+    <circle cx="45%" cy="10%" r="1.5"><animate attributeName="cy" values="10%; 15%; 10%" dur="5s" repeatCount="indefinite" /></circle>
+    <circle cx="35%" cy="80%" r="1"><animate attributeName="cx" values="35%; 40%; 35%" dur="7s" repeatCount="indefinite" /></circle>
+    <circle cx="75%" cy="85%" r="2"><animate attributeName="cy" values="85%; 80%; 85%" dur="6s" repeatCount="indefinite" /></circle>
+    <circle cx="95%" cy="50%" r="1.5"><animate attributeName="cx" values="95%; 90%; 95%" dur="5s" repeatCount="indefinite" /></circle>
+    <circle cx="5%" cy="60%" r="2"><animate attributeName="cy" values="60%; 50%; 60%" dur="8s" repeatCount="indefinite" /></circle>
+  </g>
+
+  <!-- Noise Texture -->
+  <rect width="1180" height="610" rx="16" filter="url(#noise)" style="pointer-events: none;" opacity="0.15"/>
+  
+  <!-- Global Scanline -->
+  <rect width="1180" height="4" rx="2" fill="url(#scanline)" opacity="0.15" style="pointer-events: none;">
+    <animate attributeName="y" values="-10; 620; -10" dur="8s" repeatCount="indefinite" />
+  </rect>
+
+  <!-- LEFT SIDE ASCII -->
+  <g transform="translate(40, 40)">
+     <rect width="420" height="530" rx="16" fill="var(--panel)" stroke="url(#borderGradient)" stroke-width="1.5" />
+     <g transform="translate(210, 265)">
+        <g class="floating-ascii" clip-path="url(#asciiReveal)">
+          <text x="0" y="-120" class="ascii" text-anchor="middle">             ..::::::::::..             </text>
+          <text x="0" y="-100" class="ascii" text-anchor="middle">          .::::;;;;;;;;;;::::.          </text>
+          <text x="0" y="-80" class="ascii" text-anchor="middle">        .::::;;++++++++++;;::::.        </text>
+          <text x="0" y="-60" class="ascii" text-anchor="middle">       .:::;;++%%%%%%%%%%++;;:::.       </text>
+          <text x="0" y="-40" class="ascii" text-anchor="middle">      .:::;;+%%%%%%%%%%%%%%+;;:::.      </text>
+          <text x="0" y="-20" class="ascii" text-anchor="middle">      :::;;++%%%%%%%%%%%%%%++;;:::      </text>
+          <text x="0" y="0" class="ascii" text-anchor="middle">     .:::;;++%%%%%%%%%%%%%%++;;:::.     </text>
+          <text x="0" y="20" class="ascii" text-anchor="middle">     :::;;;++%%%%%%%%%%%%%%++;;;:::     </text>
+          <text x="0" y="40" class="ascii" text-anchor="middle">     :::;;;++%%%%%%%%%%%%%%++;;;:::     </text>
+          <text x="0" y="60" class="ascii" text-anchor="middle">     :::;;;++%%%%%%%%%%%%%%++;;;:::     </text>
+          <text x="0" y="80" class="ascii" text-anchor="middle">     `:::;;++%%%%%%%%%%%%%%++;;:::'     </text>
+          <text x="0" y="100" class="ascii" text-anchor="middle">      `:::;;+%%%%%%%%%%%%%%+;;:::'      </text>
+          <text x="0" y="120" class="ascii" text-anchor="middle">       `:::;;++%%%%%%%%%%++;;:::'       </text>
+          <text x="0" y="140" class="ascii" text-anchor="middle">        `::::;;++++++++++;;::::'        </text>
+          <text x="0" y="160" class="ascii" text-anchor="middle">          `::::;;;;;;;;;;::::'          </text>
+          <text x="0" y="180" class="ascii" text-anchor="middle">            `::::::::::::::'            </text>
+          <text x="0" y="200" class="ascii" text-anchor="middle">         ..:::;++++++++++;:::..         </text>
+          <text x="0" y="220" class="ascii" text-anchor="middle">      ..::::;;+%%%%%%%%%%%%+;;::::..    </text>
+          
+          <!-- ASCII Blink Cursor -->
+          <rect x="75" y="225" width="10" height="15" fill="#06B6D4">
+             <animate attributeName="opacity" values="1;0;1" dur="0.8s" repeatCount="indefinite" />
+          </rect>
+          
+          <!-- ASCII local scanline -->
+          <rect x="-210" y="-265" width="420" height="3" fill="#10B981" opacity="0.3">
+            <animate attributeName="y" values="-265; 265; -265" dur="6s" repeatCount="indefinite" />
+          </rect>
+        </g>
+     </g>
+  </g>
+
+  <!-- RIGHT SIDE TERMINAL -->
+  <g transform="translate(490, 40)">
+     <!-- Terminal Panel -->
+     <rect width="650" height="530" rx="16" fill="var(--panel)" stroke="url(#borderGradient)" stroke-width="1.5" />
+     
+     <!-- Mac OS window controls -->
+     <circle cx="24" cy="24" r="6" fill="#ff5f56" />
+     <circle cx="44" cy="24" r="6" fill="#ffbd2e" />
+     <circle cx="64" cy="24" r="6" fill="#27c93f" />
+
+     <!-- Greeting (Sequential Reveal) -->
+     <g opacity="0">
+       <animate attributeName="opacity" values="0;1" begin="0.2s" dur="0.8s" fill="freeze" />
+       <animateTransform attributeName="transform" type="translate" values="0,10; 0,0" begin="0.2s" dur="0.8s" fill="freeze" />
+       <text x="40" y="80" class="title">Hi 👋</text>
+     </g>
+     <g opacity="0">
+       <animate attributeName="opacity" values="0;1" begin="0.5s" dur="0.8s" fill="freeze" />
+       <animateTransform attributeName="transform" type="translate" values="0,10; 0,0" begin="0.5s" dur="0.8s" fill="freeze" />
+       <text x="40" y="125" class="name">I'm Sholihul Fadjri Triwibowo</text>
+     </g>
+
+     <!-- Typing Animation Block -->
+     <g opacity="0">
+       <animate attributeName="opacity" values="0;1" begin="0.8s" dur="0.5s" fill="freeze" />
+       <text class="static-text" x="40" y="180">&gt; </text>
+       
+       <g transform="translate(70, 180)">
+         <text class="typing-text" clip-path="url(#type1)">Junior Mobile Developer</text>
+         <text class="typing-text" clip-path="url(#type2)">IT Freshgraduate</text>
+         <text class="typing-text" clip-path="url(#type3)">Mobile Apps Developer</text>
+         <text class="typing-text" clip-path="url(#type4)">Web App Developer</text>
+         
+         <!-- Cursor 1 -->
+         <g>
+           <animate attributeName="opacity" values="1;1;0;0" keyTimes="0; 0.2499; 0.25; 1" dur="16s" repeatCount="indefinite" />
+           <g>
+             <animate attributeName="opacity" values="1;0;1" dur="0.8s" repeatCount="indefinite" />
+             <rect y="-18" width="12" height="24" fill="url(#accentGradient)">
+               <animate attributeName="x" values="0; 340; 340; 0; 0" keyTimes="0; 0.0625; 0.1875; 0.25; 1" dur="16s" repeatCount="indefinite" />
+             </rect>
+           </g>
+         </g>
+         <!-- Cursor 2 -->
+         <g>
+           <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0; 0.2499; 0.25; 0.4999; 0.5; 1" dur="16s" repeatCount="indefinite" />
+           <g>
+             <animate attributeName="opacity" values="1;0;1" dur="0.8s" repeatCount="indefinite" />
+             <rect y="-18" width="12" height="24" fill="url(#accentGradient)">
+               <animate attributeName="x" values="0; 0; 240; 240; 0; 0" keyTimes="0; 0.25; 0.3125; 0.4375; 0.5; 1" dur="16s" repeatCount="indefinite" />
+             </rect>
+           </g>
+         </g>
+         <!-- Cursor 3 -->
+         <g>
+           <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0; 0.4999; 0.5; 0.7499; 0.75; 1" dur="16s" repeatCount="indefinite" />
+           <g>
+             <animate attributeName="opacity" values="1;0;1" dur="0.8s" repeatCount="indefinite" />
+             <rect y="-18" width="12" height="24" fill="url(#accentGradient)">
+               <animate attributeName="x" values="0; 0; 310; 310; 0; 0" keyTimes="0; 0.5; 0.5625; 0.6875; 0.75; 1" dur="16s" repeatCount="indefinite" />
+             </rect>
+           </g>
+         </g>
+         <!-- Cursor 4 -->
+         <g>
+           <animate attributeName="opacity" values="0;0;1;1" keyTimes="0; 0.7499; 0.75; 1" dur="16s" repeatCount="indefinite" />
+           <g>
+             <animate attributeName="opacity" values="1;0;1" dur="0.8s" repeatCount="indefinite" />
+             <rect y="-18" width="12" height="24" fill="url(#accentGradient)">
+               <animate attributeName="x" values="0; 0; 250; 250; 0" keyTimes="0; 0.75; 0.8125; 0.9375; 1" dur="16s" repeatCount="indefinite" />
+             </rect>
+           </g>
+         </g>
+       </g>
+     </g>
+
+     <!-- Info Section -->
+     <g transform="translate(40, 215)">
+       <g transform="translate(0, 0)">
+         <g opacity="0">
+           <animate attributeName="opacity" values="0;1" begin="1.0s" dur="0.5s" fill="freeze" />
+           <animateTransform attributeName="transform" type="translate" values="0,10; 0,0" begin="1.0s" dur="0.5s" fill="freeze" />
+           <text class="info-label" y="0">Location:</text>
+           <text class="info-value" x="140" y="0">Jakarta, Indonesia</text>
+         </g>
+       </g>
+       <g transform="translate(0, 30)">
+         <g opacity="0">
+           <animate attributeName="opacity" values="0;1" begin="1.2s" dur="0.5s" fill="freeze" />
+           <animateTransform attributeName="transform" type="translate" values="0,10; 0,0" begin="1.2s" dur="0.5s" fill="freeze" />
+           <text class="info-label" y="0">Education:</text>
+           <text class="info-value" x="140" y="0">Associate Degree Information Technology</text>
+         </g>
+       </g>
+       <g transform="translate(0, 60)">
+         <g opacity="0">
+           <animate attributeName="opacity" values="0;1" begin="1.4s" dur="0.5s" fill="freeze" />
+           <animateTransform attributeName="transform" type="translate" values="0,10; 0,0" begin="1.4s" dur="0.5s" fill="freeze" />
+           <text class="info-label" y="0">Current Focus:</text>
+           <text class="info-value" x="140" y="0">Looking for opportunity</text>
+         </g>
+       </g>
+       <g transform="translate(0, 90)">
+         <g opacity="0">
+           <animate attributeName="opacity" values="0;1" begin="1.6s" dur="0.5s" fill="freeze" />
+           <animateTransform attributeName="transform" type="translate" values="0,10; 0,0" begin="1.6s" dur="0.5s" fill="freeze" />
+           <text class="info-label" y="0">Portfolio:</text>
+           <text class="info-value" x="140" y="0">fdjritw.vercel.app</text>
+         </g>
+       </g>
+       <g transform="translate(0, 120)">
+         <g opacity="0">
+           <animate attributeName="opacity" values="0;1" begin="1.8s" dur="0.5s" fill="freeze" />
+           <animateTransform attributeName="transform" type="translate" values="0,10; 0,0" begin="1.8s" dur="0.5s" fill="freeze" />
+           <text class="info-label" y="0">Email:</text>
+           <text class="info-value" x="140" y="0">fadjritwibowo@gmail.com</text>
+         </g>
+       </g>
+     </g>
+
+     <!-- Skills Section -->
+     <g transform="translate(40, 365)">
+        <!-- Row 1 -->
+        <g class="skill-pill" transform="translate(0, 0)">
+          <rect width="82" height="32" rx="16" class="pill-bg" />
+          <text x="41" y="21" text-anchor="middle" class="pill-text">Next.js</text>
+        </g>
+        <g class="skill-pill" transform="translate(94, 0)">
+          <rect width="84" height="32" rx="16" class="pill-bg" />
+          <text x="42" y="21" text-anchor="middle" class="pill-text">Node.js</text>
+        </g>
+        <g class="skill-pill" transform="translate(190, 0)">
+          <rect width="82" height="32" rx="16" class="pill-bg" />
+          <text x="41" y="21" text-anchor="middle" class="pill-text">Laravel</text>
+        </g>
+        <g class="skill-pill" transform="translate(284, 0)">
+          <rect width="80" height="32" rx="16" class="pill-bg" />
+          <text x="40" y="21" text-anchor="middle" class="pill-text">Flutter</text>
+        </g>
+        <g class="skill-pill" transform="translate(376, 0)">
+          <rect width="90" height="32" rx="16" class="pill-bg" />
+          <text x="45" y="21" text-anchor="middle" class="pill-text">Tailwind</text>
+        </g>
+        
+        <!-- Row 2 -->
+        <g class="skill-pill" transform="translate(0, 44)">
+          <rect width="60" height="32" rx="16" class="pill-bg" />
+          <text x="30" y="21" text-anchor="middle" class="pill-text">SQL</text>
+        </g>
+        <g class="skill-pill" transform="translate(72, 44)">
+          <rect width="60" height="32" rx="16" class="pill-bg" />
+          <text x="30" y="21" text-anchor="middle" class="pill-text">Git</text>
+        </g>
+        <g class="skill-pill" transform="translate(144, 44)">
+          <rect width="76" height="32" rx="16" class="pill-bg" />
+          <text x="38" y="21" text-anchor="middle" class="pill-text">Figma</text>
+        </g>
+     </g>
+
+     <!-- Social Icons Section -->
+     <g transform="translate(40, 460)">
+        <g class="social-icon" transform="translate(0, 0)">
+           <circle cx="18" cy="18" r="18" class="pill-bg" />
+           <g transform="translate(6, 6) scale(1.0)">
+              <path d="M12 2C6.47 2 2 6.47 2 12c0 4.42 2.87 8.17 6.84 9.49.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.15-1.1-1.46-1.1-1.46-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.58 9.58 0 0 1 2.5-.34c.85.01 1.7.12 2.5.34 1.91-1.3 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.75c0 .26.18.58.69.48A10.01 10.01 0 0 0 22 12c0-5.53-4.47-10-10-10z" fill="currentColor" class="pill-text"/>
+           </g>
+        </g>
+        <g class="social-icon" transform="translate(48, 0)">
+           <circle cx="18" cy="18" r="18" class="pill-bg" />
+           <g transform="translate(6, 6) scale(1.0)">
+              <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" fill="currentColor" class="pill-text"/>
+           </g>
+        </g>
+        <g class="social-icon" transform="translate(96, 0)">
+           <circle cx="18" cy="18" r="18" class="pill-bg" />
+           <g transform="translate(6, 6) scale(1.0)">
+              <path d="M18.9 2.05h3.32l-7.25 8.28L23.5 22h-6.66l-5.21-6.81-5.96 6.81H2.35l7.73-8.82L1.87 2.05h6.82l4.7 6.22 5.51-6.22zm-1.16 18.06h1.84L7.54 3.9H5.57l12.17 16.2z" fill="currentColor" class="pill-text"/>
+           </g>
+        </g>
+        <g class="social-icon" transform="translate(144, 0)">
+           <circle cx="18" cy="18" r="18" class="pill-bg" />
+           <g transform="translate(6, 6) scale(1.0)">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" fill="currentColor" class="pill-text"/>
+           </g>
+        </g>
+     </g>
+  </g>
+</svg>
