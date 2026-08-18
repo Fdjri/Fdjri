@@ -23,8 +23,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 SRC = sys.argv[1] if len(sys.argv) > 1 else os.path.join(HERE, "..", "source-prepped.png")
 OUT = sys.argv[2] if len(sys.argv) > 2 else os.path.join(HERE, "..", "avi-ascii.svg")
 
-COLS = 100
-ROWS = 53
+COLS = 140
+ROWS = 74
 CELL_W = 8
 CELL_H = 15
 RAMP = " .`:-=+*cs#%@"  # bright(sparse) -> dark(dense); leading space clears bg
