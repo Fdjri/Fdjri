@@ -5,7 +5,7 @@
 <table>
   <tr>
     <td valign="top" align="center"><img src="./wordmark.svg" width="490" alt="3D ASCII wordmark" /></td>
-    <td valign="top" align="center"><img src="./profile-ascii.svg" width="370" alt="ASCII portrait" /></td>
+    <td valign="top" align="center"><img src="./profile-ascii.svg" width="360" alt="ASCII portrait" /></td>
   </tr>
 </table>
 
