@@ -13,7 +13,7 @@
 
 <h3><code>fdjri@github ~ $ ./tech_stack.sh</code></h3>
 
-<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Fdjri&layout=compact&theme=transparent&hide_border=true&title_color=c9d1d9&text_color=8b949e" alt="Top Languages" />
+<img src="https://github-stats-extended.vercel.app/api/top-langs/?username=Fdjri&layout=compact&theme=transparent&hide_border=true&title_color=c9d1d9&text_color=8b949e" alt="Top Languages" />
 
 <br><br>
 
